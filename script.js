@@ -1,0 +1,12 @@
+const news=[
+{id:1,cat:"Tamil Nadu",title:"Tamil Nadu: Sample local news headline",text:"Replace this sample with your own verified local news story and source.",date:"30 Sep 2026",img:"https://picsum.photos/seed/tn/900/550"},
+{id:2,cat:"India",title:"India: Sample national news headline",text:"Use this section for important national stories and verified reports.",date:"30 Sep 2026",img:"https://picsum.photos/seed/india/900/550"},
+{id:3,cat:"World",title:"World: Sample international headline",text:"Replace this placeholder with a current, verified international story.",date:"30 Sep 2026",img:"https://picsum.photos/seed/world/900/550"},
+{id:4,cat:"Technology",title:"Technology: Latest tech developments",text:"Add technology, AI, software and gadget stories here.",date:"30 Sep 2026",img:"https://picsum.photos/seed/tech/900/550"},
+{id:5,cat:"Sports",title:"Sports: Match and tournament updates",text:"Add verified sports news, fixtures and reports here.",date:"30 Sep 2026",img:"https://picsum.photos/seed/sport/900/550"},
+{id:6,cat:"India",title:"India: Another sample story",text:"A second example showing how multiple stories appear.",date:"29 Sep 2026",img:"https://picsum.photos/seed/india2/900/550"}];
+let cat="All";const grid=document.querySelector("#grid"),empty=document.querySelector("#empty"),search=document.querySelector("#search");
+function render(){let q=search.value.toLowerCase(),a=news.filter(n=>(cat==="All"||n.cat===cat)&&(!q||(n.title+" "+n.text+" "+n.cat).toLowerCase().includes(q)));grid.innerHTML=a.map(n=>`<article class="card"><img src="${n.img}" alt=""><div class="body"><span class="tag">${n.cat}</span><h3>${n.title}</h3><p>${n.text}</p><p class="date">${n.date}</p><button class="read" onclick="openStory(${n.id})">Read full story →</button></div></article>`).join("");empty.style.display=a.length?"none":"block"}
+function openStory(id){let n=news.find(x=>x.id===id);mimg.src=n.img;mcat.textContent=n.cat;mtitle.textContent=n.title;mdate.textContent=n.date;mtext.textContent=n.text;modal.style.display="grid"}
+document.querySelectorAll("nav a").forEach(a=>a.onclick=e=>{e.preventDefault();cat=a.dataset.cat;heading.textContent=cat==="All"?"Latest News":cat+" News";render()});
+search.oninput=render;searchBtn.onclick=render;readHero.onclick=()=>openStory(1);close.onclick=()=>modal.style.display="none";modal.onclick=e=>{if(e.target===modal)modal.style.display="none"};theme.onclick=()=>{document.body.classList.toggle("dark");theme.textContent=document.body.classList.contains("dark")?"☀️":"🌙"};render();
